@@ -1,4 +1,5 @@
 <?php include("includes/header.php"); ?>
+<?php //include("includes/init.php"); ?>
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
