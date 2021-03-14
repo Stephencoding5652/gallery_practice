@@ -6,5 +6,4 @@ require_once("user.php");
 require_once("session.php");
 
 
-
 ?>

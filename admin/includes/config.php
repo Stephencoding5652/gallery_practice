@@ -7,5 +7,5 @@ define('db_user','root');
 define('db_pass','root');
 define('db_name','gallery_db');
 
-
+session_start();
 ?>

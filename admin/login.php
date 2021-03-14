@@ -1,5 +1,5 @@
+<?php require_once("includes/header.php"); ?>
 <?php
-require_once("includes/header.php");
 
 if($session->is_signed_in()){
     redirect("index.php");
@@ -25,8 +25,6 @@ if(isset($_POST['submit'])){
     $username = "";
     $password = "";
 }
-
-
 ?>
 
 

@@ -9,24 +9,23 @@
                         </h1>
                         <?php
 
-                        // $users = User::find_all_users();
+                        // $user = new User();
 
-                        // foreach($users as $user){
-                        //     echo $user->username . "<br>";
-                        // }
-                        // $found_user = User::find_user_by_id(1);
-                        // $user = User::instantation($found_user);
+                        // $user->username = "qweqwe";
+                        // $user->password = "qweqwe";
+                        // $user->first_name = "qweqwe";
+                        // $user->last_name = "qweqwe";
 
-                        // $user->id = $found_user['user_id'];
-                        // $user->username = $found_user['username'];
-                        // $user->password = $found_user['password'];
-                        // $user->first_name = $found_user['first_name'];
-                        // $user->last_name = $found_user['last_name'];
-                        // echo $user->id;
+                        // $user->create();
 
-                        $found_user = User::find_user_by_id(1);
-                        echo $found_user->username;
+                        $user = User::find_user_by_id(4);
 
+                        $user->username = "zxczxc";
+                        $user->password = "zxczxc";
+                        $user->first_name = "zxczxc";
+                        $user->last_name = "zxczxc";
+
+                        $user->update();
                         ?>
 
                         <ol class="breadcrumb">
