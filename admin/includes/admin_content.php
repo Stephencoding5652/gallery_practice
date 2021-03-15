@@ -11,21 +11,40 @@
 
                         // $user = new User();
 
-                        // $user->username = "qweqwe";
-                        // $user->password = "qweqwe";
-                        // $user->first_name = "qweqwe";
-                        // $user->last_name = "qweqwe";
+                        // $user->username = "newuser";
+                        // $user->save();
+
+                        // $user->username = "asdasd";
+                        // $user->password = "asdasd";
+                        // $user->first_name = "asdasd";
+                        // $user->last_name = "asdasd";
 
                         // $user->create();
 
-                        $user = User::find_user_by_id(4);
+                        // $user = User::find_user_by_id(4);
 
-                        $user->username = "zxczxc";
-                        $user->password = "zxczxc";
-                        $user->first_name = "zxczxc";
-                        $user->last_name = "zxczxc";
+                        // $user->username = "zxczxc";
+                        // $user->password = "zxczxc";
+                        // $user->first_name = "zxczxc";
+                        // $user->last_name = "zxczxc";
 
-                        $user->update();
+                        // $user->update();
+
+                        // $photos = Photo::find_all();
+
+                        // foreach($photos as $photo){
+                        //     echo $photo->title . "<br>";
+                        // }
+
+                        $photo = new Photo();
+
+                        $photo->title = "eric";
+                        $photo->description = "eric";
+                        $photo->filename = "eric";
+                        $photo->type = "eric";
+                        $photo->size = 2;
+
+                        $photo->save();
                         ?>
 
                         <ol class="breadcrumb">
