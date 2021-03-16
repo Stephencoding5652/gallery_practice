@@ -4,7 +4,7 @@ class User extends Db_object{
 
     protected static $db_table = "users";
     protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
-    public $user_id;
+    public $id;
     public $username;
     public $password;
     public $first_name;
@@ -56,7 +56,7 @@ class User extends Db_object{
     // }
 
     // public function save(){
-    //     return isset($this->user_id) ? $this->update() : $this->create() ;
+    //     return isset($this->id) ? $this->update() : $this->create() ;
     // }
 
     // public function create(){
@@ -71,7 +71,7 @@ class User extends Db_object{
     //     // $sql .= $database->escape_string($this->last_name) . "')";
 
     //     if($database->query($sql)){
-    //         $this->user_id = $database->the_insert_id();
+    //         $this->id = $database->the_insert_id();
     //         return true;
     //     }else{
     //         return false;
@@ -91,7 +91,7 @@ class User extends Db_object{
 
     //     $sql = "UPDATE users SET ";
     //     $sql .= implode(", ", $properties_pairs);
-    //     $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+    //     $sql .= " WHERE id = " . $database->escape_string($this->id);
 
     //     $database->query($sql);
 
@@ -102,7 +102,7 @@ class User extends Db_object{
     //     global $database;
 
     //     $sql = "DELETE FROM users ";
-    //     $sql .= "WHERE user_id = " . $database->escape_string($this->user_id);
+    //     $sql .= "WHERE id = " . $database->escape_string($this->id);
     //     $sql .= " LIMIT 1";
 
     //     $database->query($sql);

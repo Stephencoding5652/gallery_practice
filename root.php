@@ -9,4 +9,5 @@ defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT . DS . 'admi
 defined('IMAGES_PATH') ? null : define('IMAGES_PATH', SITE_ROOT. DS . 'admin' . DS . 'images');
 
 
+
 ?>

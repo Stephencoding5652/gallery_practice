@@ -9,9 +9,9 @@ class Db_object{
         return static::find_by_query($syntax);
     }
 
-    public static function find_by_id($user_id){
+    public static function find_by_id($id){
         global $database;
-        $syntax = "SELECT * FROM ". static::$db_table ." WHERE user_id = {$user_id}";
+        $syntax = "SELECT * FROM ". static::$db_table ." WHERE id = {$id}";
         $result_set = static::find_by_query($syntax);
 
         // if(!empty($result_set)){
@@ -40,7 +40,7 @@ class Db_object{
         $calling_class = get_called_class();
         $the_object = new $calling_class;
     
-        // $the_object->id = $found_user['user_id'];
+        // $the_object->id = $found_user['id'];
         // $the_object->username = $found_user['username'];
         // $the_object->password = $found_user['password'];
         // $the_object->first_name = $found_user['first_name'];
@@ -89,7 +89,7 @@ class Db_object{
     }
 
     public function save(){
-        return isset($this->user_id) ? $this->update() : $this->create() ;
+        return isset($this->id) ? $this->update() : $this->create() ;
     }
 
     public function create(){
@@ -104,7 +104,7 @@ class Db_object{
         // $sql .= $database->escape_string($this->last_name) . "')";
 
         if($database->query($sql)){
-            $this->user_id = $database->the_insert_id();
+            $this->id = $database->the_insert_id();
             return true;
         }else{
             return false;
@@ -124,7 +124,7 @@ class Db_object{
 
         $sql = "UPDATE ". static::$db_table ." SET ";
         $sql .= implode(", ", $properties_pairs);
-        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+        $sql .= " WHERE id = " . $database->escape_string($this->id);
 
         $database->query($sql);
 
@@ -135,10 +135,10 @@ class Db_object{
         global $database;
 
         $sql = "DELETE FROM " . static::$db_table;
-        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+        $sql .= " WHERE id = " . $database->escape_string($this->id);
         $sql .= " LIMIT 1";
 
-        $database->query($sql);
+        return $database->query($sql) ? true : false;
     }
 }
 

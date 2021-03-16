@@ -36,15 +36,9 @@
                         //     echo $photo->title . "<br>";
                         // }
 
-                        $photo = new Photo();
+                        $photo = Photo::find_by_id(9);
 
-                        $photo->title = "eric";
-                        $photo->description = "eric";
-                        $photo->filename = "eric";
-                        $photo->type = "eric";
-                        $photo->size = 2;
-
-                        $photo->save();
+                        echo $photo->filename;
                         ?>
 
                         <ol class="breadcrumb">
