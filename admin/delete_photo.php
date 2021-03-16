@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 
     if($photo){
         $photo->delete_photo();
-        redirect("../photos.php");
+        redirect("photos.php");
     }else{
-        redirect("../photos.php");
+        redirect("photos.php");
     }
 }
 
