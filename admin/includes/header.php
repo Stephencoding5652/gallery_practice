@@ -35,6 +35,8 @@ ob_start();
 
     <link href="css/styles.css" rel="stylesheet" type="text/css">
 
+    <link href="css/dropzone.css" rel="stylesheet" type="text/css">
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     

@@ -117,6 +117,17 @@ class User extends Db_object{
 
     }
 
+    public function ajax_save_user_image($user_image, $user_id){
+        global $database;
+        
+
+        $this->user_image = $user_image;
+        $this->id = $user_id;
+        $this->save();
+
+
+    }
+
 }
 
 

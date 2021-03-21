@@ -6,7 +6,8 @@ $(document).ready(function(){
     var user_id;
     var image_src;
     var image_href_splitted;
-    var image_id;
+    var image_name;
+    var photo_id;
 
     $(".modal_thumbnails").click(function(){
         $("#set_user_image").prop('disabled', false);
@@ -19,7 +20,22 @@ $(document).ready(function(){
         image_href_splitted = image_src.split('/');
         image_name = image_href_splitted[image_href_splitted.length - 1];
 
-        alert(image_name);
+        photo_id = $(this).attr("data");
+        $.ajax({
+            url: "includes/ajax_code.php",
+            data: {photo_id: photo_id},
+            type: "POST",
+            success: function(data){
+
+                if(!data.error){
+
+                    $("#modal_sidebar").html(data);
+                }
+            }
+
+        });
+
+
     });
 
     $("#set_user_image").click(function(){
@@ -31,7 +47,8 @@ $(document).ready(function(){
             success: function(data){
 
                 if(!data.error){
-                    alert(image_name);
+
+                    location.reload(true);
                 }
             }
 
@@ -46,4 +63,20 @@ $(document).ready(function(){
         console.error( error );
     } );
 
+});
+
+
+$(".info-box-header").click(function(){
+
+    $(".inside").slideToggle("fast");
+
+    $("#toggle").toggleClass("glyphicon glyphicon-menu-down , glyphicon glyphicon-menu-up ");
+});
+
+
+/**********Delete Function***************/
+
+$(".delete_link").click(function(){
+
+    return confirm("Are you sure want to delete this item?");
 });
