@@ -45,23 +45,33 @@ $photos = Photo::find_all();
                                     <th>File Name</th>
                                     <th>Title</th>
                                     <th>Size</th>
+                                    <th>Comments</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php foreach($photos as $photo) : ?>
 
                                 <tr>
-                                    <td><img src="<?php echo $photo->picture_path(); ?>" alt="" width="100" height="100">
-                                        <div class="picture_link">
+                                    <td><img class="admin-photo-thumbnail" src="<?php echo $photo->picture_path(); ?>" alt="">
+                                        <div class="action_link">
                                             <a href="delete_photo.php?id=<?php echo $photo->id; ?>">Delete</a>
-                                            <a href="#">Edit</a>
-                                            <a href="#">View</a>
+                                            <a href="edit_photo.php?id=<?php echo $photo->id; ?>">Edit</a>
+                                            <a href="../photos.php?id=<?php echo $photo->id; ?>">View</a>
                                         </div>
                                     </td>
                                     <td><?php echo $photo->id; ?></td>
                                     <td><?php echo $photo->filename; ?></td>
                                     <td><?php echo $photo->title; ?></td>
-                                    <td><?php echo $photo->size; ?></td>    
+                                    <td><?php echo $photo->size; ?></td>
+                                    <td>
+
+                                    <a href="photo_comment.php?id=<?php echo $photo->id; ?>">
+                                    <?php
+                                    $comments = Comment::find_the_comments($photo->id);
+                                    echo count($comments);
+                                    ?>
+                                    </a>
+                                    </td>
                                 </tr>
 
                             <?php endforeach; ?>

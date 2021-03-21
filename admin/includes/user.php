@@ -3,12 +3,26 @@
 class User extends Db_object{
 
     protected static $db_table = "users";
-    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_image');
     public $id;
     public $username;
     public $password;
     public $first_name;
     public $last_name;
+    public $user_image;
+    public $tmp_path;
+    public $upload_directory = "images";
+    public $errors = array();
+    public $upload_errors = array(
+        UPLOAD_ERR_OK           => "There is no error",
+        UPLOAD_ERR_INI_SIZE     => "The uploaded file exceeds the upload_max filesize directive in php.ini",
+        UPLOAD_ERR_FORM_SIZE    => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML",
+        UPLOAD_ERR_PARTIAL      => "The uploaded file was only partially uploaded",
+        UPLOAD_ERR_NO_FILE      => "No file was uploaded",
+        UPLOAD_ERR_NO_TMP_DIR   => "Missing a temporary folder",
+        UPLOAD_ERR_CANT_WRITE   => "Failed to write file to disk",
+        UPLOAD_ERR_EXTENSION    => "A PHP extention stopped the file upload"
+    );
 
     
 
@@ -28,85 +42,81 @@ class User extends Db_object{
         return !empty($result_set) ? array_shift($result_set) : false;
     }
 
-    
+    public function image_path(){
+        return $this->upload_directory.DS.$this->user_image;
+    }
 
-    // protected function properties(){
+    public function delete_user(){
+        $target_path = $this->image_path();
 
-    //     $properties = array();
+        if($this->delete()){
+            return unlink($target_path) ? true : false;
+        }else{
 
-    //     foreach(self::$db_table_fields as $db_field){
-    //         if(property_exists($this, $db_field)){
-    //             $properties[$db_field] = $this->$db_field;
-    //         }
-    //     }
+            return false;
+        }
+    }
 
-    //     return $properties;
-    // }
+    public function set_file($file){
 
-    // protected function clean_properties(){
-    //     global $database;
+        if(empty($file) || !$file || !is_array($file)){
 
-    //     $clean_properties = array();
+            $this->errors[] = "There was no file uploaded here";
+            return false;
 
-    //     foreach($this->properties() as $key => $value){
-    //         $clean_properties[$key] = $database->escape_string($value);
-    //     }
+        }else if($file['error'] != 0){
 
-    //     return $clean_properties;
-    // }
+            $this->errors[] = $this->upload_errors[$file['error']];
+            return false;
 
-    // public function save(){
-    //     return isset($this->id) ? $this->update() : $this->create() ;
-    // }
+        }else{
 
-    // public function create(){
-    //     global $database;
+            $this->user_image = $file['name'];
+            $this->tmp_path = $file['tmp_name'];
 
-    //     $properties = $this->clean_properties();
-    //     $sql = "INSERT INTO users (". implode(",",array_keys($properties)) .") ";
-    //     $sql .= "VALUES ('" . implode("','",array_values($properties)) . "')";
-    //     // $sql .= $database->escape_string($this->username) . "', '";
-    //     // $sql .= $database->escape_string($this->password) . "', '";
-    //     // $sql .= $database->escape_string($this->first_name) . "', '";
-    //     // $sql .= $database->escape_string($this->last_name) . "')";
+        }
+        
+    }
 
-    //     if($database->query($sql)){
-    //         $this->id = $database->the_insert_id();
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }
+    public function save_user_image(){
 
-    // public function update(){
-    //     global $database;
 
-    //     $properties = $this->clean_properties();
+        if(!empty($this->errors)){
 
-    //     $properties_pairs = array();
+            return false;
 
-    //     foreach($properties as $key => $value){
-    //         $properties_pairs[] = "{$key}='{$value}'";
-    //     }
+        }
 
-    //     $sql = "UPDATE users SET ";
-    //     $sql .= implode(", ", $properties_pairs);
-    //     $sql .= " WHERE id = " . $database->escape_string($this->id);
+        if(empty($this->user_image) || empty($this->tmp_path)){
 
-    //     $database->query($sql);
+            $this->errors[]= "the file was not available";
+            return false;
 
-    //     return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-    // }
+        }
 
-    // public function delete(){
-    //     global $database;
+        $target_path = $this->image_path();
 
-    //     $sql = "DELETE FROM users ";
-    //     $sql .= "WHERE id = " . $database->escape_string($this->id);
-    //     $sql .= " LIMIT 1";
+        if(file_exists($target_path)){
 
-    //     $database->query($sql);
-    // }
+            $this->errors[] = "This file {$this->user_image} already exists";
+            return false;
+
+        }
+
+        if(move_uploaded_file($this->tmp_path, $target_path)){
+            
+            unset($this->tmp_path);
+            return true;
+
+        }else{
+
+            $this->errors[] = "the file directory probably does not have permission";
+            return false;
+
+        }
+
+    }
+
 }
 
 

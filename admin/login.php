@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
 
 <div class="col-md-4 col-md-offset-3">
 
-<h4 class="bg-danger"><?php echo $the_message; ?></h4>
+<h4 class="bg-danger" color="white"><?php echo $the_message; ?></h4>
 	
 <form id="login-id" action="" method="post">
 	
