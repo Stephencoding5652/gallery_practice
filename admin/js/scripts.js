@@ -17,21 +17,27 @@ $(document).ready(function(){
         
         image_src = $(this).prop('src');
         image_href_splitted = image_src.split('/');
-        image_id = image_href_splitted[image_href_splitted.lentgh - 1];
+        image_name = image_href_splitted[image_href_splitted.length - 1];
 
-        alert(image_id);
+        alert(image_name);
     });
 
     $("#set_user_image").click(function(){
 
-        alert(user_id);
+        $.ajax({
+            url: "includes/ajax_code.php",
+            data: {image_name: image_name, user_id: user_id},
+            type: "POST",
+            success: function(data){
+
+                if(!data.error){
+                    alert(image_name);
+                }
+            }
+
+        });
 
     });
-
-
-
-
-
 
 
     ClassicEditor
